@@ -1,0 +1,141 @@
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom/client'
+import GrowthOSAssessment from './Assessment.jsx'
+import GrowthOSCockpit from './Cockpit.jsx'
+
+function App() {
+  const [view, setView] = useState('home')
+
+  if (view === 'assessment') {
+    return (
+      <>
+        <BackButton onClick={() => setView('home')} />
+        <GrowthOSAssessment />
+      </>
+    )
+  }
+  if (view === 'cockpit') {
+    return (
+      <>
+        <BackButton onClick={() => setView('home')} />
+        <GrowthOSCockpit />
+      </>
+    )
+  }
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      background: '#f4f5f7',
+      fontFamily: "'DM Sans', sans-serif",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '40px 20px',
+    }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');`}</style>
+
+      <div style={{ maxWidth: 880, width: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32 }}>
+          <div style={{ width: 32, height: 32, background: '#c8102e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: 13, height: 13, background: '#fff' }} />
+          </div>
+          <div>
+            <div style={{ fontFamily: "'Roboto Mono', monospace", fontSize: 10, letterSpacing: '0.14em', color: '#8d96a8' }}>● ATS</div>
+            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, color: '#0d1f3c', letterSpacing: '0.04em', lineHeight: 1, marginTop: 2 }}>GROWTH OS · DEMO</div>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 14, fontFamily: "'Roboto Mono', monospace", fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#5a6478' }}>
+          <span style={{ color: '#c8102e' }}>// </span>Choose a prototype to explore
+        </div>
+        <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 56, color: '#0d1f3c', lineHeight: 0.95, marginBottom: 36 }}>
+          Two prototypes.<br/>One operating system.
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <Card
+            num="01"
+            title="Growth OS Assessment"
+            tag="The front door"
+            desc="A 25-question scored diagnostic across the five Growth OS dimensions. Captures qualified leads, benchmarks them against peers and the ATS Marketing Floor, and outputs a ranked top 3 gaps with projected business lift."
+            cta="Open Assessment"
+            onClick={() => setView('assessment')}
+          />
+          <Card
+            num="02"
+            title="Growth OS Cockpit"
+            tag="The product"
+            desc="The four published agents — Demand, Content, Analytics, Ops — operating as a daily SaaS surface. Includes the Predictive Demand Engine, governance layer, and ongoing benchmarking against the ATS Marketing Floor."
+            cta="Open Cockpit"
+            onClick={() => setView('cockpit')}
+          />
+        </div>
+
+        <div style={{ marginTop: 28, padding: '16px 20px', background: '#fff', border: '1px solid #d8dce2', fontSize: 13, color: '#5a6478', lineHeight: 1.5 }}>
+          <strong style={{ color: '#0d1f3c' }}>How to use this demo:</strong> Click into either prototype to explore.
+          A "Back to demo home" button appears at the top-right of every screen. The Assessment is best
+          experienced end-to-end (intro → questions → results). The Cockpit's left sidebar lets you
+          navigate between the four agents and the operating-system layers.
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Card({ num, title, tag, desc, cta, onClick }) {
+  return (
+    <button onClick={onClick} style={{
+      background: '#fff',
+      border: '1px solid #d8dce2',
+      borderTop: '3px solid #c8102e',
+      padding: '24px 26px',
+      cursor: 'pointer',
+      textAlign: 'left',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 12,
+      fontFamily: "'DM Sans', sans-serif",
+      transition: 'all 150ms',
+    }}
+      onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(13,31,60,0.08)' }}
+      onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+        <span style={{ fontFamily: "'Roboto Mono', monospace", fontSize: 11, color: '#c8102e', letterSpacing: '0.1em', fontWeight: 500 }}>{num}</span>
+        <span style={{ fontFamily: "'Roboto Mono', monospace", fontSize: 10, color: '#8d96a8', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{tag}</span>
+      </div>
+      <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, color: '#0d1f3c', lineHeight: 0.95 }}>{title}</div>
+      <div style={{ fontSize: 13, color: '#5a6478', lineHeight: 1.55 }}>{desc}</div>
+      <div style={{ marginTop: 6, paddingTop: 14, borderTop: '1px solid #e6e9ee', fontFamily: "'Roboto Mono', monospace", fontSize: 10, letterSpacing: '0.12em', color: '#0d1f3c', textTransform: 'uppercase', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6 }}>
+        → {cta}
+      </div>
+    </button>
+  )
+}
+
+function BackButton({ onClick }) {
+  return (
+    <button onClick={onClick} style={{
+      position: 'fixed',
+      top: 12,
+      right: 12,
+      zIndex: 9999,
+      background: '#0d1f3c',
+      color: '#fff',
+      border: 'none',
+      padding: '8px 14px',
+      fontFamily: "'Roboto Mono', monospace",
+      fontSize: 10,
+      letterSpacing: '0.12em',
+      textTransform: 'uppercase',
+      fontWeight: 600,
+      cursor: 'pointer',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+    }}>
+      ← Demo home
+    </button>
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)
